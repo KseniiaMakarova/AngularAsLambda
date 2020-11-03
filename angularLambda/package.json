@@ -11,7 +11,9 @@
     "dev:ssr": "ng run angularLambda:serve-ssr",
     "serve:ssr": "node dist/angularLambda/server/main.js",
     "build:ssr": "ng build --prod && ng run angularLambda:server:production",
-    "prerender": "ng run angularLambda:prerender"
+    "prerender": "ng run angularLambda:prerender",
+    "serve:sls": "serverless offline start",
+    "build:sls": "ng build --prod --base-href=/v1/ && ng run angularLambda:serverless:production"
   },
   "private": true,
   "dependencies": {
