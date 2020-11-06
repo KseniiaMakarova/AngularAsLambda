@@ -9,6 +9,6 @@ export class EchoService {
   constructor(private httpClient: HttpClient) {}
 
   public makeCall(): Observable<any> {
-    return this.httpClient.get<any>('https://jsonplaceholder.typicode.com/posts/1');
+    return this.httpClient.get<any>('https://dd6fmot6p4.execute-api.eu-central-1.amazonaws.com/v1/');
   }
 }

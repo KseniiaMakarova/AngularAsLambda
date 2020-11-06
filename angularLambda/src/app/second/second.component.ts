@@ -14,4 +14,8 @@ export class SecondComponent implements OnInit {
   public ngOnInit(): void {
     this.response = this.echoService.makeCall();
   }
+
+  public createNewEntity(): void {
+    console.log("button clicked!");
+  }
 }
