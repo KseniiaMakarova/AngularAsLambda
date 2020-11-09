@@ -19,6 +19,10 @@ package:
     - "node_modules/media-typer/**"
     - "node_modules/mime-types/**"
     - "node_modules/mime-db/**"
+    - "node_modules/socket.io-client/**"
+    - "node_modules/socket.io/**"
+    - "node_modules/socket.io-adapter/**"
+    - "node_modules/socket.io-parser/**"
     - "dist/**"
     - "lambda.js"
 custom:
