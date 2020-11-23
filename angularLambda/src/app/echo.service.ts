@@ -9,6 +9,6 @@ export class EchoService {
   constructor(private httpClient: HttpClient) {}
 
   public makeCall(): Observable<any> {
-    return this.httpClient.get<any>('https://2bmasodkz9.execute-api.eu-central-1.amazonaws.com/v1/');
+    return this.httpClient.get<any>('https://2bmasodkz9.execute-api.eu-central-1.amazonaws.com/v1/chat/');
   }
 }
