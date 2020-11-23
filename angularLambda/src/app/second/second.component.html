@@ -1,4 +1,9 @@
 <h1>Second component</h1>
 <h2>This component injects EchoService</h2>
+<span>WebSocket Status:
+  <span class="{{connected ? 'text-success' : 'text-danger'}}">
+    <strong>{{ connected ? 'Connected' : 'Disconnected'}}</strong>
+  </span>
+</span>
 Response is: <span>{{response | async | json}}</span>
 <button (click)="createNewEntity()">Create new entity</button>

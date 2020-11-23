@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EchoService } from '../echo.service';
 import { Observable } from 'rxjs';
-import * as io from 'socket.io-client';
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 
 @Component({
   templateUrl: `second.component.html`,
@@ -9,29 +9,41 @@ import * as io from 'socket.io-client';
 })
 export class SecondComponent implements OnInit {
   public response: Observable<any>;
-  socket: any;
+  ws: WebSocketSubject<any>;
+  stringWsObservable: Observable<string>;
+  connected: boolean;
 
   constructor(private echoService: EchoService) {}
 
   public ngOnInit(): void {
     this.response = this.echoService.makeCall();
-    this.socket = io('https://2bmasodkz9.execute-api.eu-central-1.amazonaws.com/v1/ws/');
-    this.listen('/chat').subscribe(data => console.log("received something!"));
+    this.connect();
   }
 
-  listen(eventName: string) {
-    return new Observable((subscriber) => {
-      this.socket.on(eventName, data => {
-        subscriber.next(data)
-      })
-    })
-  }
+  connect() {
+    // use wss:// instead of ws:// for a secure connection, e.g. in production
+    this.ws = webSocket('wss://ow8y4v8aj3.execute-api.eu-central-1.amazonaws.com/v1'); // returns a WebSocketSubject
 
-  emit(eventName, data) {
-    this.socket.emit(eventName, data);
+
+    this.stringWsObservable = this.ws.multiplex(
+      () => ({subscribe: 'someone subscribed'}),
+      () => ({unsubscribe: 'someone unsubscribed'}),
+      () => true
+    );
+
+    this.stringWsObservable.subscribe(
+      value => {
+        console.log('received something: ' + value);
+        this.response = this.echoService.makeCall();
+      },
+      () => console.log("something went wrong")
+    );
+
+    this.connected = true;
   }
 
   public createNewEntity(): void {
+    this.ws.next('message sent!');
     console.log("button clicked!");
   }
 }
