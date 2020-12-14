@@ -1,9 +1,22 @@
 <h1>Second component</h1>
 <h2>This component injects EchoService</h2>
-<span>WebSocket Status:
-  <span class="{{connected ? 'text-success' : 'text-danger'}}">
-    <strong>{{ connected ? 'Connected' : 'Disconnected'}}</strong>
-  </span>
-</span>
-Response is: <span>{{response | async | json}}</span>
-<button (click)="createNewEntity()">Create new entity</button>
+
+<div>
+  <ul *ngIf="messages$ | async as messages">
+    <li *ngFor="let message of messages">
+      <strong>№{{ message.id }}:</strong> {{ message.text }}
+    </li>
+  </ul>
+</div>
+
+<div>
+  <label>
+    <input #box
+           (keyup.enter)="sendText(box.value)"
+           (blur)="sendText(box.value)">
+  </label>
+
+  <p>{{value}}</p>
+</div>
+
+<button (click)="disconnect()">disconnect websocket</button>
